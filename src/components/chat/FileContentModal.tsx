@@ -4,6 +4,7 @@ import { invoke, convertFileSrc } from '@tauri-apps/api/core'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Markdown } from '@/components/ui/markdown'
+import { getFilename } from '@/lib/path-utils'
 
 function isMarkdownFile(filename: string | null | undefined): boolean {
   if (!filename) return false
@@ -57,7 +58,7 @@ export function FileContentModal({ filePath, onClose }: FileContentModalProps) {
     }
   }, [filePath, loadFileContent])
 
-  const filename = filePath?.split('/').pop() ?? filePath
+  const filename = filePath ? getFilename(filePath) : filePath
 
   const isImage = isImageFile(filename)
 
